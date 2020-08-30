@@ -1,0 +1,244 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/games":
+    post:
+      summary: Creates a game
+      tags:
+      - Games
+      parameters: []
+      responses:
+        '201':
+          description: user created
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                columns_size:
+                  type: integer
+                rows_size:
+                  type: integer
+                mines_amount:
+                  type: integer
+              required:
+              - name
+  "/games/{id}":
+    get:
+      summary: Retrieves an game
+      tags:
+      - Games
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: game found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  cells:
+                    type: array
+                    items:
+                      type: integer
+                  flagged_cells:
+                    type: array
+                    items:
+                      type: integer
+                  opened_cells:
+                    type: array
+                    items:
+                      type: integer
+                  status:
+                    type: integer
+                  rows_size:
+                    type: integer
+                  columns_size:
+                    type: integer
+                  mines_amount:
+                    type: integer
+                  user_id:
+                    type: string
+                  start_time:
+                    type: string
+                  end_time:
+                    type: string
+                required:
+                - uuid
+                - name
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  cells:
+                    type: array
+                    items:
+                      type: integer
+                  flagged_cells:
+                    type: array
+                    items:
+                      type: integer
+                  opened_cells:
+                    type: array
+                    items:
+                      type: integer
+                  status:
+                    type: integer
+                  rows_size:
+                    type: integer
+                  columns_size:
+                    type: integer
+                  mines_amount:
+                    type: integer
+                  user_id:
+                    type: string
+                  start_time:
+                    type: string
+                  end_time:
+                    type: string
+                required:
+                - uuid
+                - name
+        '404':
+          description: game not found
+          content: {}
+        '406':
+          description: unsupported accept header
+          content: {}
+    put:
+      summary: Update a game
+      tags:
+      - Games
+      parameters: []
+      responses:
+        '201':
+          description: game updated
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                opened_cell:
+                  type: integer
+                flagged_cells:
+                  type: array
+                  items:
+                    type: integer
+              required:
+              - opened_cell
+              - flagged_cells
+  "/users":
+    post:
+      summary: Creates an user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: user created
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+  "/users/{uuid}":
+    get:
+      summary: Retrieves an user
+      tags:
+      - Users
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                  name:
+                    type: string
+                required:
+                - uuid
+                - name
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                  name:
+                    type: string
+                required:
+                - uuid
+                - name
+        '404':
+          description: user not found
+          content: {}
+        '406':
+          description: unsupported accept header
+          content: {}
+    put:
+      summary: Update an user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: user updated
+          content: {}
+        '422':
+          description: invalid request
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+              - name
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
