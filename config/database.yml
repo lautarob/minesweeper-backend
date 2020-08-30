@@ -81,4 +81,5 @@ test:
 production:
   <<: *default
   database: minesweeper_production
-  url: <%= ENV['DATABASE_URL'] %>
+  username: 
+  password:  <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
